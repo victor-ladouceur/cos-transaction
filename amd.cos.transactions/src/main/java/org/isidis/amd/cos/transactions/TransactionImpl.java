@@ -44,6 +44,7 @@ public class TransactionImpl extends UnicastRemoteObject implements Transaction
 		while (resourcesIterator.hasNext()) 
 		{
 			TransactionResource resource = (TransactionResource) resourcesIterator.next();
+			resource.activeTransaction(this);
 			resource.prepare();
 		}
 		
@@ -63,6 +64,7 @@ public class TransactionImpl extends UnicastRemoteObject implements Transaction
 		while (resourcesIterator.hasNext()) 
 		{
 			TransactionResource resource = (TransactionResource) resourcesIterator.next();
+			resource.activeTransaction(this);
 			resource.commit();
 		}
 		started = false;
@@ -80,6 +82,7 @@ public class TransactionImpl extends UnicastRemoteObject implements Transaction
 		while (resourcesIterator.hasNext()) 
 		{
 			TransactionResource resource = (TransactionResource) resourcesIterator.next();
+			resource.activeTransaction(this);
 			resource.rollback();
 		}
 		started = false;

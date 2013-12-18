@@ -5,6 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.isidis.amd.cos.transactions.Transaction;
 import org.isidis.amd.cos.transactions.TransactionException;
 import org.isidis.amd.resources.common.TrainingCamp;
 import org.isidis.amd.resources.common.Unit;
@@ -13,6 +14,7 @@ public class TrainingCampBean extends UnicastRemoteObject implements TrainingCam
 {
 	private static final long serialVersionUID = -6622439355462427448L;
 	private List<Unit> register;
+	private Transaction currentTransaction;
 	
 	public TrainingCampBean() throws RemoteException 
 	{
@@ -31,18 +33,24 @@ public class TrainingCampBean extends UnicastRemoteObject implements TrainingCam
 	@Override
 	public void prepare() throws RemoteException 
 	{
-		System.out.println("TrainingCamp resource is now prepared");
+		System.out.println("Base resource is now prepared by the transaction "+ currentTransaction.getId());
 	}
 	
 	@Override
 	public void commit() throws TransactionException, RemoteException 
 	{
-		System.out.println("TrainingCamp resource is now committed");
+		System.out.println("Base resource is now committed by the transaction "+ currentTransaction.getId());
 	}
 	
 	@Override
 	public void rollback() throws TransactionException, RemoteException 
 	{
-		System.out.println("TrainingCamp resource is now rollback");
+		System.out.println("Base resource is now rollback by the transaction "+ currentTransaction.getId());
+	}
+
+	@Override
+	public void activeTransaction(Transaction pTransaction) throws RemoteException
+	{
+		currentTransaction = pTransaction;
 	}
 }
