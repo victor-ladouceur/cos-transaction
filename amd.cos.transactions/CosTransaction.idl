@@ -1,0 +1,32 @@
+	typedef sequence<octet> TransactionID;
+	exception NotPreparedException {} ;
+	exception TransactionException {} ;
+	
+
+	interface TransactionResource {
+		void prepare() raises (NotPreparedException);
+		void commit() raises(TransactionException);
+		void rollback() raises(TransactionException);
+	};
+	
+	typedef sequence<TransactionResource> Resources;
+	interface TransactionCoordination {
+		void registerResource(in TransactionResource resource );
+		Resources getResources ();
+		
+	};
+
+	interface Transaction {
+		TransactionCoordination getCoordinator();
+		void begin() raises(TransactionException);
+		void commit() raises(TransactionException);
+		void rollback() raises(TransactionException);
+	};
+	
+	interface TransactionFactory {
+		Transaction createTransaction();
+	};
+
+	interface TransactionManager {
+		TransactionFactory getTransactionFactory();
+	};
