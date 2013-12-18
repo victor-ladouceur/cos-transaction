@@ -6,22 +6,31 @@ import java.rmi.server.UnicastRemoteObject;
 import org.isidis.amd.resources.common.Unit;
 import org.isidis.amd.resources.common.UnitImpl;
 
-public class Novice extends UnicastRemoteObject implements Unit {
+public class Novice extends UnicastRemoteObject implements Unit 
+{
 	private static final long serialVersionUID = 694743541204182812L;
 	private Unit unit;
-	public Novice(String pName) throws RemoteException {
+	
+	public Novice(String pName) throws RemoteException 
+	{
 		unit = new UnitImpl(Unit.NOVICE_TITLE, pName);
 	}
+	
 	@Override
-	public String getName() throws RemoteException {
+	public String getName() throws RemoteException 
+	{
 		return unit.getName();
 	}
+	
 	@Override
-	public String getTitle() throws RemoteException {
+	public String getTitle() throws RemoteException 
+	{
 		return unit.getTitle();
 	}
+	
 	@Override
-	public String present() throws RemoteException {
+	public String present() throws RemoteException 
+	{
 		return unit.present();
 	}
 }

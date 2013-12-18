@@ -4,26 +4,37 @@ import java.lang.reflect.Method;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class InvocationBean extends UnicastRemoteObject implements Invocation {
+public class InvocationBean extends UnicastRemoteObject implements Invocation 
+{
 	private static final long serialVersionUID = 1811477713422003131L;
 	private Object bean;
 	private Method method;
 	private Object[] args;
-	public InvocationBean(Object pBean, Method pMethod, Object[] pArgs) throws RemoteException {
+	
+	public InvocationBean(Object pBean, Method pMethod, Object[] pArgs) throws RemoteException 
+	{
 		bean = pBean;
 		method = pMethod;
 		args = pArgs;
 	}
-	public Object getBean() throws RemoteException {
+	
+	public Object getBean() throws RemoteException 
+	{
 		return bean;
 	}
-	public Method getMethod() throws RemoteException {
+	
+	public Method getMethod() throws RemoteException 
+	{
 		return method;
 	}
-	public Object[] getArgs() throws RemoteException {
+	
+	public Object[] getArgs() throws RemoteException 
+	{
 		return args;
 	}
-	public String getResume() throws RemoteException {
+	
+	public String getResume() throws RemoteException 
+	{
 		String interfaceString = (getBean().getClass().getInterfaces())[getBean().getClass().getInterfaces().length-1].getSimpleName();
 		StringBuffer argsString = new StringBuffer();
 		for (Object a : getArgs())
