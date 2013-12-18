@@ -39,13 +39,15 @@ public class BaseBean extends UnicastRemoteObject implements Base
 	@Override
 	public void commit() throws TransactionException, RemoteException 
 	{
-		System.out.println("Base resource is now committed by the transaction "+ currentTransaction.getId());
+		System.out.println(String.format("Base resource is now committed (%d operation%s) by the transaction %d ", currentTransaction.getInvocations().size()
+				, (currentTransaction.getInvocations().size() == 1)?"":"s", currentTransaction.getId()));
 	}
 	
 	@Override
 	public void rollback() throws TransactionException, RemoteException 
 	{
-		System.out.println("Base resource is now rollback by the transaction "+ currentTransaction.getId());
+		System.out.println(String.format("Base resource is now rollback (%d operation%s) by the transaction %d ", currentTransaction.getInvocations().size()
+				, (currentTransaction.getInvocations().size() == 1)?"":"s", currentTransaction.getId()));
 	}
 
 	@Override
