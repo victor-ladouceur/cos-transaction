@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import org.isidis.amd.resources.common.Unit;
-import org.isidis.amd.resources.common.UnitImpl;
+import org.isidis.amd.resources.common.UnitBean;
 
 public class Soldier extends UnicastRemoteObject implements Unit 
 {
@@ -14,7 +14,7 @@ public class Soldier extends UnicastRemoteObject implements Unit
 	public Soldier(Unit pUnit) throws RemoteException 
 	{
 		if (!pUnit.getTitle().equals(NOVICE_TITLE))throw new IllegalArgumentException();
-		unit = new UnitImpl(SOLDIER_TITLE, pUnit.getName());
+		unit = new UnitBean(SOLDIER_TITLE, pUnit.getName());
 	}
 	
 	@Override
