@@ -1,6 +1,5 @@
 package org.isidis.amd.client.transaction.launcher;
 
-import java.io.IOException;
 import java.rmi.RMISecurityManager;
 import java.util.Scanner;
 
@@ -28,11 +27,14 @@ public class MainClient
 	public static final String TRAININGCAMP_RESOURCE_ADDRESS = String.format("rmi://%s:%s/%s/", SERVICES_HOST, TRAININGCAMP_RESOURCE_PORT, TRAININGCAMP_RESOURCE_SERVICE);
 	public static final String BATTLEFIELD_RESOURCE_ADDRESS = String.format("rmi://%s:%s/%s/", SERVICES_HOST, BATTLEFIELD_RESOURCE_PORT, BATTLEFIELD_RESOURCE_SERVICE);
 	
-	public static void pause(String pMessage) {
+	public static void pause(String pMessage) 
+	{
 		System.out.print(pMessage);
 		pause();
 	}
-	public static void pause() {
+	
+	public static void pause() 
+	{
 		new Scanner(System.in).nextLine();
 	}
 	
