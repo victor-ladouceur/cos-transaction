@@ -11,6 +11,9 @@ import java.rmi.registry.LocateRegistry;
 import org.isidis.amd.cos.transactions.TransactionManager;
 import org.isidis.amd.cos.transactions.TransactionManagerImpl;
 
+/**
+ * Application that launch the transactions server.
+ */
 public class TransactionServer 
 {
 	public static final String SERVICE_NAME = "tmanager";
