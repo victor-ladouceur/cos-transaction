@@ -1,4 +1,4 @@
-package org.isidis.amd.resources.trainingcamp.test;
+package org.isidis.amd.resources.trainingcamp;
 
 import java.rmi.RemoteException;
 

@@ -1,4 +1,4 @@
-package org.isidis.amd.resources.battlefield.test;
+package org.isidis.amd.resources.battlefield;
 
 import java.rmi.RemoteException;
 

@@ -1,4 +1,4 @@
-package org.isidis.amd.resources.battlefield.test;
+package org.isidis.amd.resources.battlefield;
 
 import java.rmi.RemoteException;
 
@@ -30,7 +30,7 @@ public class BattleFieldBeanTest extends TestCase
 	
 	public void testTrain() throws RemoteException
 	{
-		Unit soldier = instance.deploy(new UnitBean("Soldier","JD"));
-		assertTrue("Is it a soldier ?",soldier instanceof Warrior);
+		Unit warrior = instance.deploy(new UnitBean("Soldier","JD"));
+		assertTrue("Is it a warrior ?",warrior instanceof Warrior);
 	}
 }
