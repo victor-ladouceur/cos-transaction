@@ -10,7 +10,7 @@ import org.isidis.amd.resources.trainingcamp.Soldier;
 
 public class SoldierTest extends TestCase 
 {
-	private Soldier soldier;
+	private Soldier instance;
 	
 	public SoldierTest()
 	{
@@ -20,27 +20,27 @@ public class SoldierTest extends TestCase
 	protected void setUp() throws Exception
 	{
 		Unit unit = new UnitBean("Novice","JD");
-		soldier = new Soldier(unit);
+		instance = new Soldier(unit);
 	}
 	
 	protected void tearDown() throws Exception
 	{
 		super.tearDown();
-		soldier = null;
+		instance = null;
 	}
 	
 	public void testSoldier()
 	{
-		assertNotNull("instance created", soldier);
+		assertNotNull("instance created", instance);
 	}
 	
 	public void testGetName() throws RemoteException
 	{
-		assertEquals("name is it ok ?","JD",soldier.getName());
+		assertEquals("name is it ok ?","JD",instance.getName());
 	}
 	
 	public void testGetTitle() throws RemoteException
 	{
-		assertEquals("title is it ok ?","Soldier", soldier.getTitle());
+		assertEquals("title is it ok ?","Soldier", instance.getTitle());
 	}
 }
