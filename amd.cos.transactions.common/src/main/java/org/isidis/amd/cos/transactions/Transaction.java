@@ -11,7 +11,7 @@ public interface Transaction extends Remote {
 	public void commit() throws TransactionException, RemoteException;
 	public void rollback() throws TransactionException, RemoteException;
 	public boolean hasStarted() throws RemoteException;
-	public void addInvocation(Invocation pInvocation) throws RemoteException;
+	public void addInvocation(Invocation pInvocation) throws TransactionException, RemoteException;
 	public List<Invocation> getInvocations() throws RemoteException;
 	public String getInvocationsResume() throws RemoteException;
 }

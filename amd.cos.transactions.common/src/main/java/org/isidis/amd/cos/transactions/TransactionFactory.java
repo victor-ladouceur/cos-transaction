@@ -7,5 +7,5 @@ import java.util.List;
 public interface TransactionFactory extends Remote {
 	public Transaction createTransaction() throws RemoteException;
 	public List<Transaction> getTransactions() throws RemoteException;
-	public List<Transaction> getTransactions(Object pResource) throws RemoteException;
+	public List<Transaction> getTransactions(TransactionResource pResource) throws RemoteException;
 }
