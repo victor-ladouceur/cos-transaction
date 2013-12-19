@@ -6,6 +6,7 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>amd.resources.base</artifactId>
+  <packaging>jar</packaging>
   <build>
 		<plugins>
 			<plugin>
