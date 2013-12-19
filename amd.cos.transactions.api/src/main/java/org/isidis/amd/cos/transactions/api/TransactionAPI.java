@@ -16,23 +16,58 @@ import org.isidis.amd.cos.transactions.TransactionFactory;
 import org.isidis.amd.cos.transactions.TransactionManager;
 import org.isidis.amd.cos.transactions.TransactionResource;
 
+/**
+ * The API Transaction that must be used by the client to manage transactions.
+ */
 public class TransactionAPI 
 {
-	/** The unique instance of the TransactionAPI class */
+	/** 
+	 * The unique instance of the TransactionAPI class. 
+	 */
 	private static TransactionAPI instance;
+	/**
+	 * Returns the unique API Transaction.
+	 * @param pTmanagerAddress The URL address of the COS transaction.
+	 * @return The unique instance of the TransactionAPI class.
+	 * @throws MalformedURLException The URL given is malformed.
+	 * @throws NotBoundException The resource isn't found in the remote registry.
+	 * @throws RemoteException 
+	 */
+	public static TransactionAPI init(String pTmanagerAddress) throws MalformedURLException, NotBoundException, RemoteException 
+	{
+		try 
+		{
+			if (instance == null)
+				instance = new TransactionAPI(pTmanagerAddress);
+		} 
+		catch (Exception e) 
+		{
+			throw new RuntimeException(String.format("The COS Transaction can't be reached! (%s)", pTmanagerAddress));
+		}
+		return instance;
+	}
 	
+	/**
+	 * List of all registered resources in the API.
+	 */
 	private Map<Class<?>, Object> resources;
+	/**
+	 * The transaction manager of the COS Transaction.
+	 */
 	private TransactionManager tmanager;
+	/**
+	 * The transaction factory of the API.
+	 */
 	private TransactionFactory tfactory;
 
-
 	/**
-	 * Private constructor of the API (the TransactionAPI class can't be instantiated)
-	 * @throws MalformedURLException
-	 * @throws RemoteException
-	 * @throws NotBoundException
+	 * Private constructor of the API (the TransactionAPI class can't be instantiated).
+	 * @param pTmanagerAddress The URL address of the COS transaction.
+	 * @throws MalformedURLException The URL given is malformed.
+	 * @throws NotBoundException The resource isn't found in the remote registry.
+	 * @throws RemoteException 
 	 */
-	private TransactionAPI(String pTmanagerAddress) throws MalformedURLException, RemoteException, NotBoundException 
+	private TransactionAPI(String pTmanagerAddress) throws MalformedURLException, NotBoundException, RemoteException 
 	{
 		resources = new HashMap<Class<?>, Object>();
 		tmanager = (TransactionManager) Naming.lookup(pTmanagerAddress);
@@ -44,7 +79,7 @@ public class TransactionAPI
 			{
 				try 
 				{
-					// cancel transactions not closed
+					// cancel transactions that aren't closed
 					for (Transaction t : tfactory.getTransactions())
 						if (t.hasStarted())
 							t.rollback();	
@@ -59,27 +94,6 @@ public class TransactionAPI
 				}
 			}
 		}));
-	}
-
-	/**
-	 * Return the API Transaction
-	 * @return The unique instance of the TransactionAPI class
-	 * @throws MalformedURLException If the URL is malformed
-	 * @throws RemoteException 
-	 * @throws NotBoundException
-	 */
-	public static TransactionAPI init(String pTmanagerAddress) throws MalformedURLException, RemoteException, NotBoundException 
-	{
-		try 
-		{
-			if (instance == null)
-				instance = new TransactionAPI(pTmanagerAddress);
-		} 
-		catch (Exception e) 
-		{
-			throw new RuntimeException(String.format("The COS Transaction can't be reached! (%s)", pTmanagerAddress));
-		}
-		return instance;
 	}
 	/**
 	 * Register a remote resource and return the proxy on it
@@ -113,7 +127,7 @@ public class TransactionAPI
 	/**
 	 * Know if a resource is registered in the API
 	 * @param pResource Tested resource
-	 * @return Indicate if a resource is registered in the API
+	 * @return Boolean that indicates if a resource is registered in the API.
 	 */
 	public boolean isRegisteredResource(Object pResource) 
 	{

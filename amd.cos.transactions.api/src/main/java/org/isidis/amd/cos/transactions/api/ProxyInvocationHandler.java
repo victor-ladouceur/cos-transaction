@@ -1,6 +1,5 @@
 package org.isidis.amd.cos.transactions.api;
 
-import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -10,22 +9,20 @@ import org.isidis.amd.cos.transactions.Transaction;
 import org.isidis.amd.cos.transactions.TransactionFactory;
 import org.isidis.amd.cos.transactions.TransactionResource;
 
-public class ProxyInvocationHandler implements InvocationHandler, Serializable 
+/**
+ * Invocation handler of a proxy instance used for transactions.
+ */
+public class ProxyInvocationHandler implements InvocationHandler 
 {
-	private static final long serialVersionUID = -2597006015044220992L;
+	/**
+	 * Static list of methods of the interface TransactionResource.
+	 */
 	private static final Method []transactionsMethods = TransactionResource.class.getMethods();
-	private Class<?> resourceInterface;
-	private Object bean;
-	private TransactionFactory tfactory;
-	
-	public ProxyInvocationHandler(Class<?> pResourceInterface, Object pBean, TransactionFactory pTfactory) 
-	{
-		resourceInterface = pResourceInterface;
-		tfactory = pTfactory;
-		bean = pBean;
-	}
-	
-	public boolean isTransactionMethod(Method pMethod) 
+	/** 
+	 * Know if the method given in the call is a method of the TransactionResource interface.
+	 * @return True if the method given in the call is a method of the TransactionResource interface.
+	 */
+	public static boolean isTransactionMethod(Method pMethod) 
 	{
 		for (Method m : transactionsMethods)
 			if (m.getName().equals(pMethod.getName())) 
@@ -33,6 +30,39 @@ public class ProxyInvocationHandler implements InvocationHandler, Serializable
 		return false;
 	}
 	
+	
+	/**
+	 * Interface class of the remote resource.
+	 */
+	private Class<?> resourceInterface;
+	/**
+	 * Remote resource/
+	 */
+	private Object bean;
+	/**
+	 * The transaction factory of the API.
+	 */
+	private TransactionFactory tfactory;
+	
+	/**
+	 * Constructor of a proxy invocation handler.
+	 * @param pResourceInterface Interface class of the remote resource.
+	 * @param pBean Remote resource.
+	 * @param pTfactory The transaction factory of the API.
+	 */
+	public ProxyInvocationHandler(Class<?> pResourceInterface, Object pBean, TransactionFactory pTfactory) 
+	{
+		resourceInterface = pResourceInterface;
+		tfactory = pTfactory;
+		bean = pBean;
+	}
+	/**
+	 * Invocation interceptor.
+	 * @param pProxy The object that call the intercepted method.
+	 * @param pMethod The intercepted method.
+	 * @param pArgs The arguments of the intercepted method.
+	 * @throws Throwable
+	 */
 	public Object invoke(Object pProxy, Method pMethod, Object []pArgs) throws Throwable 
 	{
 		if (isTransactionMethod(pMethod)) throw new RuntimeException("Illegal call: only transaction can manipulate a resource");
