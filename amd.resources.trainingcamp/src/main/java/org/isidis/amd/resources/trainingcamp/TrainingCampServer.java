@@ -10,6 +10,9 @@ import java.rmi.registry.LocateRegistry;
 
 import org.isidis.amd.resources.common.TrainingCamp;
 
+/**
+ * Application that launch the training camp resource server.
+ */
 public class TrainingCampServer 
 {
 	public static final String SERVICE_NAME = "trainingcamp";

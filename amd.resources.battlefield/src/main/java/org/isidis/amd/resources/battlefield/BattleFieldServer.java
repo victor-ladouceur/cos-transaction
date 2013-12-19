@@ -10,6 +10,9 @@ import java.rmi.registry.LocateRegistry;
 
 import org.isidis.amd.resources.common.BattleField;
 
+/**
+ * Application that launch the battlefield resource server.
+ */
 public class BattleFieldServer 
 {
 	public static final String SERVICE_NAME = "battlefield";

@@ -10,6 +10,9 @@ import java.rmi.registry.LocateRegistry;
 
 import org.isidis.amd.resources.common.Base;
 
+/**
+ * Application that launch the base resource server.
+ */
 public class BaseServer 
 {
 	public static final String SERVICE_NAME = "base";
