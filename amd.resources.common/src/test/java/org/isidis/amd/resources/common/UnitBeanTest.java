@@ -4,11 +4,11 @@ import java.rmi.RemoteException;
 
 import junit.framework.TestCase;
 
-public class UnitImplTest extends TestCase 
+public class UnitBeanTest extends TestCase 
 {
-	private UnitImpl unit;
+	private UnitBean unit;
 	
-	public UnitImplTest()
+	public UnitBeanTest()
 	{
 		super();
 	}
@@ -16,7 +16,7 @@ public class UnitImplTest extends TestCase
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		unit = new UnitImpl("test", "test");
+		unit = new UnitBean("test", "test");
 	}
 	
 	protected void tearDown() throws Exception
@@ -25,7 +25,7 @@ public class UnitImplTest extends TestCase
 		unit = null;
 	}
 	
-	public void testUnitImpl()
+	public void testUnitBean()
 	{
 		assertNotNull("instance is created", unit);
 	}

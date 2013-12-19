@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import org.isidis.amd.resources.common.Unit;
-import org.isidis.amd.resources.common.UnitImpl;
+import org.isidis.amd.resources.common.UnitBean;
 
 public class Novice extends UnicastRemoteObject implements Unit 
 {
@@ -13,7 +13,7 @@ public class Novice extends UnicastRemoteObject implements Unit
 	
 	public Novice(String pName) throws RemoteException 
 	{
-		unit = new UnitImpl(Unit.NOVICE_TITLE, pName);
+		unit = new UnitBean(Unit.NOVICE_TITLE, pName);
 	}
 	
 	@Override

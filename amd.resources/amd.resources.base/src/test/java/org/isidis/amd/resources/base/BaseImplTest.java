@@ -7,7 +7,7 @@ import static org.junit.Assert.fail;
 import java.rmi.RemoteException;
 
 import org.isidis.amd.resources.common.Unit;
-import org.isidis.amd.resources.common.UnitImpl;
+import org.isidis.amd.resources.common.UnitBean;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,7 +32,7 @@ public class BaseImplTest {
 	@Test
 	public void testGetNovice() {
 		try {
-			assertTrue(instance.getNovice("John Doe") instanceof UnitImpl);
+			assertTrue(instance.getNovice("John Doe") instanceof UnitBean);
 		} catch (RemoteException e) {
 			fail(e.getMessage());
 		}
