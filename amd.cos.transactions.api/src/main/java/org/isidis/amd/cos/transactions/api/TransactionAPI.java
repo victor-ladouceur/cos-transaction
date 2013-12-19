@@ -18,28 +18,13 @@ import org.isidis.amd.cos.transactions.TransactionResource;
 
 public class TransactionAPI 
 {
-	private static final long serialVersionUID = 9134600758008409512L;
+	/** The unique instance of the TransactionAPI class */
+	private static TransactionAPI instance;
+	
 	private Map<Class<?>, Object> resources;
 	private TransactionManager tmanager;
 	private TransactionFactory tfactory;
 
-	/** Holder of the unique instance of the TransactionAPI class */
-	private static class TransactionAPIHolder 
-	{
-		/** The unique instance of the TransactionAPI class */
-		private final static TransactionAPI instance;
-		static 
-		{
-			try 
-			{
-				instance = new TransactionAPI();
-			} 
-			catch (Exception e) 
-			{
-				throw new RuntimeException("The COS Transaction can't be reached!");
-			}
-		}
-	}
 
 	/**
 	 * Private constructor of the API (the TransactionAPI class can't be instantiated)
@@ -47,10 +32,10 @@ public class TransactionAPI
 	 * @throws RemoteException
 	 * @throws NotBoundException
 	 */
-	private TransactionAPI() throws MalformedURLException, RemoteException, NotBoundException 
+	private TransactionAPI(String pTmanagerAddress) throws MalformedURLException, RemoteException, NotBoundException 
 	{
 		resources = new HashMap<Class<?>, Object>();
-		tmanager = (TransactionManager) Naming.lookup(Configuration.TRANSACTIONS_MANAGER_ADDRESS);
+		tmanager = (TransactionManager) Naming.lookup(pTmanagerAddress);
 		tfactory = tmanager.getTransactionFactory();
 		// shutdown hook
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() 
@@ -83,9 +68,18 @@ public class TransactionAPI
 	 * @throws RemoteException 
 	 * @throws NotBoundException
 	 */
-	public static TransactionAPI init() throws MalformedURLException, RemoteException, NotBoundException 
+	public static TransactionAPI init(String pTmanagerAddress) throws MalformedURLException, RemoteException, NotBoundException 
 	{
-		return TransactionAPIHolder.instance;
+		try 
+		{
+			if (instance == null)
+				instance = new TransactionAPI(pTmanagerAddress);
+		} 
+		catch (Exception e) 
+		{
+			throw new RuntimeException(String.format("The COS Transaction can't be reached! (%s)", pTmanagerAddress));
+		}
+		return instance;
 	}
 	/**
 	 * Register a remote resource and return the proxy on it
