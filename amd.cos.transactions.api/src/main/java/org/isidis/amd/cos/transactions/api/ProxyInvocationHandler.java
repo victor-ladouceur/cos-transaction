@@ -38,7 +38,7 @@ public class ProxyInvocationHandler implements InvocationHandler, Serializable
 		if (isTransactionMethod(pMethod)) throw new RuntimeException("Illegal call: only transaction can manipulate a resource");
 		
 		int interceptedInvocations = 0;
-		List<Transaction> transactions = tfactory.getTransactions(bean);
+		List<Transaction> transactions = tfactory.getTransactions((TransactionResource) bean);
 		if (transactions != null && transactions.size() > 0) 
 		{
 			for (Transaction transaction : transactions) 
